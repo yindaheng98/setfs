@@ -8,13 +8,25 @@ enum setfs_type
     unionset,     //unionset folder
 };
 
+//if the folder is subset, then setfs_root is the path of its superset and whiteout folder
+struct setfs_root_subset {
+    char *superset;
+    char *whiteout;
+};
+
+//if the folder is intersection or unionset, then setfs_root is a list of basic set folders
+struct setfs_root_intersection {
+    char* *basicsets;
+};
+struct setfs_root_unionset {
+    char* *basicsets;
+};
+
 union setfs_root
 {
-    //if the folder is subset, then setfs_root is the path of its superset and whiteout folder
-    char *superset_and_whiteout[2];
-
-    //if the folder is intersection or unionset, then setfs_root is a list of basic set folders
-    char **basic_set;
+    struct setfs_root_subset subset;
+    struct setfs_root_intersection intersection;
+    struct setfs_root_unionset unionset;
 };
 
 struct setfs_attr
