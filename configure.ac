@@ -3,8 +3,11 @@
 
 AC_PREREQ([2.69])
 AC_INIT([setfs], [1.0], [yindaheng98@163.com])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
+AC_PROG_CC
 
 # Checks for libraries.
 
@@ -14,4 +17,5 @@ AC_INIT([setfs], [1.0], [yindaheng98@163.com])
 
 # Checks for library functions.
 
+AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
