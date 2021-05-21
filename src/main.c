@@ -22,6 +22,7 @@
   bbfs.log, in the directory from which you run bbfs.
 */
 #include "config.h"
+#define FUSE_USE_VERSION 26
 
 #include <ctype.h>
 #include <dirent.h>
@@ -35,12 +36,53 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-
 #ifdef HAVE_SYS_XATTR_H
 #include <sys/xattr.h>
 #endif
 
-struct fuse_operations setfs_oper = {};
+struct fuse_operations setfs_oper = {
+    .getattr = NULL,
+    .readlink = NULL,
+    //.getdir = NULL,
+    .mknod = NULL,
+    .mkdir = NULL,
+    .unlink = NULL,
+    .rmdir = NULL,
+    .symlink = NULL,
+    .rename = NULL,
+    .link = NULL,
+    .chmod = NULL,
+    .chown = NULL,
+    .truncate = NULL,
+    //.utime = NULL,
+    .open = NULL,
+    .read = NULL,
+    .write = NULL,
+    .statfs = NULL,
+    .flush = NULL,
+    .release = NULL,
+    .fsync = NULL,
+
+#ifdef HAVE_SYS_XATTR_H
+    .setxattr = NULL,
+    .getxattr = NULL,
+    .listxattr = NULL,
+    .removexattr = NULL,
+#endif
+
+    .opendir = NULL,
+    .readdir = NULL,
+    .releasedir = NULL,
+    .fsyncdir = NULL,
+    .init = NULL,
+    .destroy = NULL,
+    .access = NULL,
+    .create = NULL,
+    .ftruncate = NULL,
+    .fgetattr = NULL,
+    .lock = NULL,
+    .utimens = NULL,
+    .bmap = NULL};
 
 int main(int argc, char *argv[])
 {
@@ -48,7 +90,7 @@ int main(int argc, char *argv[])
 
     // turn over control to fuse
     fprintf(stderr, "about to call fuse_main\n");
-    fuse_stat = fuse_main(argc, argv, &setfs_oper);
+    fuse_stat = fuse_main(argc, argv, &setfs_oper, NULL);
     fprintf(stderr, "fuse_main returned %d\n", fuse_stat);
 
     return fuse_stat;
