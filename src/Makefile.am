@@ -1,2 +1,4 @@
 bin_PROGRAMS = setfs
 setfs_SOURCES = main.c
+AM_CFLAGS = @FUSE_CFLAGS@
+LDADD = @FUSE_LIBS@

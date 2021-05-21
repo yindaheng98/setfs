@@ -9,9 +9,14 @@ AC_CONFIG_HEADERS([config.h])
 # Checks for programs.
 AC_PROG_CC
 
-# Checks for libraries.
+# Checks for libraries.y
+PKG_CHECK_MODULES(FUSE, fuse)
 
 # Checks for header files.
+AC_CHECK_HEADERS([sys/xattr.h])
+AC_CHECK_HEADERS([attr/xattr.h])
+AC_CHECK_HEADERS([sys/extattr.h])
+AC_CHECK_FUNCS([fallocate])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
